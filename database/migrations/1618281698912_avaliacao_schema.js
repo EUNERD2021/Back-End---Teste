@@ -10,6 +10,7 @@ class AvaliacaoSchema extends Schema {
       table.timestamps()
       table.integer('estrelas')
       table.string('comentario')
+      table.integer('profissional').unsigned().notNullable();
     })
   }
 
