@@ -8,6 +8,12 @@ class AvaliacaoController {
    * GET avaliações
    */
   async index ({ request, response, view }) {
+    const {profissional} = request.only(['profissional']);
+    
+    if(profissional){
+      return await Avaliacao.query().where('profissional', profissional).fetch();
+    }
+
     return Avaliacao.all();
   }
 

@@ -17,7 +17,7 @@ class ProfissionalController {
    */
   async store ({ request, response }) {
     const dados = request.only(["nome", "idade"]);
-    await Profissional.create(dados);
+    return await Profissional.create(dados);
   }
 
   /**
@@ -51,6 +51,7 @@ class ProfissionalController {
     });
 
     await profissional.save();
+    return profissional;
   }
 
   /**
