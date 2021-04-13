@@ -1,92 +1,60 @@
 'use strict'
 
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
+const Avaliacao = use('App/Models/Avaliacao');
 
-/**
- * Resourceful controller for interacting with avaliacaos
- */
 class AvaliacaoController {
   /**
-   * Show a list of all avaliacaos.
-   * GET avaliacaos
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
+   * Show a list of all avaliações.
+   * GET avaliações
    */
   async index ({ request, response, view }) {
+    return Avaliacao.all();
   }
 
-  /**
-   * Render a form to be used for creating a new avaliacao.
-   * GET avaliacaos/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
-  }
-
-  /**
+   /**
    * Create/save a new avaliacao.
-   * POST avaliacaos
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * POST avaliações
    */
   async store ({ request, response }) {
+    const dados = request.only(['estrelas', 'comentario', 'profissional']);
+    await Avaliacao.create(dados);
   }
 
   /**
    * Display a single avaliacao.
-   * GET avaliacaos/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
+   * GET avaliações/:id
    */
   async show ({ params, request, response, view }) {
-  }
-
-  /**
-   * Render a form to update an existing avaliacao.
-   * GET avaliacaos/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
+    return await Avaliacao.findOrFail(params.id);
   }
 
   /**
    * Update avaliacao details.
-   * PUT or PATCH avaliacaos/:id
+   * PUT or PATCH avaliações/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const avaliacao = await Avaliacao.findOrFail(params.id);
+    const dados = request.only(['estrelas', 'comentario', 'profissional']);
+    
+    avaliacao.fill({
+      id : avaliacao.id,
+      ...dados
+    })
+
+    await avaliacao.save();
   }
 
   /**
    * Delete a avaliacao with id.
-   * DELETE avaliacaos/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * DELETE avaliações/:id
    */
   async destroy ({ params, request, response }) {
+    const avaliacao = await Avaliacao.findOrFail(params.id);
+    await avaliacao.delete();
   }
 }
 

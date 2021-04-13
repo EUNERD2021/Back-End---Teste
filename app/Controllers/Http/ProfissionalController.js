@@ -1,46 +1,23 @@
 'use strict'
 
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
+const Profissional = use('App/Models/Profissional');
 
-/**
- * Resourceful controller for interacting with profissionals
- */
 class ProfissionalController {
   /**
    * Show a list of all profissionals.
    * GET profissionals
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-  }
-
-  /**
-   * Render a form to be used for creating a new profissional.
-   * GET profissionals/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
+    return Profissional.all();
   }
 
   /**
    * Create/save a new profissional.
    * POST profissionals
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const dados = request.only(["nome", "idade"]);
+    await Profissional.create(dados);
   }
 
   /**
@@ -53,18 +30,7 @@ class ProfissionalController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-  }
-
-  /**
-   * Render a form to update an existing profissional.
-   * GET profissionals/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
+    return await Profissional.findOrFail(params.id);
   }
 
   /**
@@ -76,6 +42,15 @@ class ProfissionalController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const dados = request.only(['nome', 'idade']);
+
+    const profissional = await Profissional.findOrFail(params.id);
+    profissional.fill({
+      id: profissional.id,
+      ...dados
+    });
+
+    await profissional.save();
   }
 
   /**
@@ -87,6 +62,8 @@ class ProfissionalController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const profissional = await Profissional.findOrFail(params.id);
+    await profissional.delete();
   }
 }
 
