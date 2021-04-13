@@ -1,40 +1,51 @@
-# Back-End---Teste
+# Desafio Técnico
+Este é o resultado do desafio proposto. Devido a limitações de tempo:
+- Desenvolvi apenas alguns testes, que obviamente não cobrem todos os casos.
+- Não desenvolvi as validações dos dados, tramento das excessões e feedbacks adequados.
 
-# O Desafio:
+### Tecnologias
+* [AdonisJs]
+* [NodeJs]
 
-•	O seu objetivo é criar uma API para simular um sistema de avaliação de prestadores de
-serviços da área de TI. Está API contará com endpoints para cadastrar os prestadores de
-serviços, relacionar uma avaliação a algum prestador de serviço e listar todas as avaliações
-de algum prestador de serviço.
+### URL de Teste
+* [walaceleal.com.br]
 
-•	A Stack - Linguagem de programação e Frameworks - é de livre escolha, o único requisito é que o banco de dados seja relacional.
+### Instalação
+Preencha os dados do .env
+```js
+HOST=127.0.0.1
+PORT=3333
+NODE_ENV=development
+APP_URL=http://${HOST}:${PORT}
+CACHE_VIEWS=false
+APP_KEY=
+DB_CONNECTION=sqlite
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=
+DB_DATABASE=adonis
+SESSION_DRIVER=cookie
+HASH_DRIVER=bcrypt
+```
+Instale as dependências, execute as migrações.
+```sh
+$ npm install
+$ adonis migration:run
+$ adonis serve --dev
+```
+Rodar servidor
+```sh
+$ adonis serve --dev
+```
+Rodar os testes
+```sh
+$ adonis test
+```
 
-# Pré-Requisitos:
+### Rotas
+O arquivo 'Rotas_Insomnia.json' possui as rotas desenvolvidas no Insomnia.
 
-•	Desenvolver uma API Rest ou GraphQL;
-
-•	Alterar o readme do projeto com uma documentação explicativa sobre a stack escolhida e como testar o mesmo.
-
-# Diferenciais:
-
-•	Cobertura de testes unitários para as principais funcionalidades, não precisa ser nada muito complexo e extenso, basta ser objetivo e assertivo;
-
-•	Criar uma collection com todas as rotas para os testes (Postman ou Insomnia);
-
-•	Qualquer alteração que possa vir a complementar o sistema.
-
-# Instruções:
-
-•	Realizar fork deste projeto;
-
-•	Desenvolver em cima do seu fork;
-
-•	Após finalizar, enviar um e-mail com o link do repositório e realizar o pull request no projeto base.
-
-# E por fim:
-
-•	Vamos avaliar a maneira que você escreveu seu código, a solução apresentada e a cobertura de testes;
-
-•	Caso encontre algum impedimento no decorrer do desenvolvimento, entregue da maneira que preferir e faça uma explicação sobre o impedimento;
-
-•	Avaliaremos também sua postura, honestidade e a maneira que resolve problemas.
+[AdonisJs]: <http://adonisjs.com/>
+[NodeJs]: <https://nodejs.org/>
+[walaceleal.com.br]: <http://walaceleal.com.br:3335/>
